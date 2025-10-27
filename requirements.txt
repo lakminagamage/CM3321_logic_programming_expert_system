@@ -1,0 +1,4 @@
+experta==1.9.4
+customtkinter==5.2.1
+frozendict==2.4.0
+packaging
