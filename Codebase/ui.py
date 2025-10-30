@@ -5,6 +5,9 @@ customtkinter.set_default_color_theme("blue")
 
 
 class App(customtkinter.CTk):
+    """
+    Main application GUI class for the Laptop Recommendation Expert System.
+    """
 
     def __init__(self, submit_callback):
         

@@ -4,13 +4,18 @@ from ui import App
 
 
 class LaptopRecommendationSystem:
+    """
+    Main orchestrator class that connects the UI with the expert system engine.
+    """
 
     def __init__(self):
-        """Initialize the recommendation system."""
         self.engine = LaptopKnowledgeEngine()
         self.app = None
 
     def run_expert_system(self, answers_dict):
+        """
+        Process user answers through the expert system and display results.
+        """
         self.engine.reset()
         for key, value in answers_dict.items():
             if key == 'features':
@@ -34,12 +39,18 @@ class LaptopRecommendationSystem:
             })
 
     def start(self):
+        """
+        Start the application by initializing and launching the GUI.
+        """
         self.app = App(submit_callback=self.run_expert_system)
         
         self.app.mainloop()
 
 
 def main():
+    """
+    Main entry point of the application.
+    """
     system = LaptopRecommendationSystem()
     system.start()
 

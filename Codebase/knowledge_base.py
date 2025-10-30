@@ -2,9 +2,15 @@ from experta import KnowledgeEngine, Rule, Fact, DefFacts, MATCH, TEST
 
 
 class LaptopKnowledgeEngine(KnowledgeEngine):
+    """
+    Expert system for recommending laptops based on user requirements.
+    """
 
     @DefFacts()
     def initial_facts(self):
+        """
+        Declare the initial facts representing the laptop inventory.
+        """
         yield Fact(laptop_type="Ultrabook", 
                   description="Thin, light, premium laptops with excellent battery life")
         yield Fact(laptop_type="Gaming Laptop", 
@@ -24,6 +30,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         salience=10
     )
     def gaming_recommendation(self, budget):
+        """
+        Recommend gaming laptops for users with gaming as primary use and high budget.
+        """
         self.declare(Fact(
             recommendation="Gaming Laptop",
             reason="You need high performance for gaming. Gaming laptops offer powerful GPUs and high refresh rate displays.",
@@ -38,6 +47,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         salience=10
     )
     def student_touchscreen_recommendation(self, features):
+        """
+        Recommend 2-in-1 convertible laptops for students who need touchscreen functionality.
+        """
         self.declare(Fact(
             recommendation="2-in-1 Convertible",
             reason="Perfect for note-taking and flexible learning. Touchscreen and stylus support enhance productivity.",
@@ -51,6 +63,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         Fact(battery="critical")
     )
     def student_portable_recommendation(self):
+        """
+        Recommend ultrabooks for students who need maximum portability and battery life.
+        """
         self.declare(Fact(
             recommendation="Ultrabook",
             reason="Best for students who carry their laptop daily. Lightweight with all-day battery life.",
@@ -63,6 +78,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         Fact(budget="unlimited")
     )
     def creative_professional_recommendation(self):
+        """
+        Recommend professional workstations for creative work with unlimited budget.
+        """
         self.declare(Fact(
             recommendation="Professional Workstation",
             reason="Creative work demands color-accurate displays and powerful processing. Workstations deliver professional-grade performance.",
@@ -72,6 +90,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
     # Rule 5: macOS User
     @Rule(Fact(os="macos"), salience=10)
     def mac_user_recommendation(self):
+        """
+        Recommend Apple MacBooks for users who prefer or require macOS.
+        """
         self.declare(Fact(
             recommendation="Ultrabook",
             reason="macOS is only available on Apple laptops. MacBooks offer premium build quality and seamless ecosystem integration.",
@@ -81,6 +102,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
     # Rule 6: Economy Budget User
     @Rule(Fact(budget="economy"))
     def economy_budget_recommendation(self):
+        """
+        Recommend budget laptops for users with economy (<$600) budget constraints.
+        """
         self.declare(Fact(
             recommendation="Budget All-Rounder",
             reason="Great value for everyday tasks like browsing, documents, and streaming without breaking the bank.",
@@ -90,6 +114,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
     # Rule 7: Desk-Bound User
     @Rule(Fact(portability="desk"))
     def desk_user_recommendation(self):
+        """
+        Recommend larger laptops for users who keep their laptop stationary.
+        """
         self.declare(Fact(
             recommendation="Budget All-Rounder",
             reason="Since portability isn't a concern, you can get larger screens and better value for money.",
@@ -103,6 +130,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         salience=5
     )
     def business_durability_recommendation(self, features):
+        """
+        Recommend professional workstations for users prioritizing durability.
+        """
         self.declare(Fact(
             recommendation="Professional Workstation",
             reason="Business-grade laptops offer military-spec durability, enterprise support, and extended warranties.",
@@ -115,6 +145,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         Fact(budget="high-end")
     )
     def premium_general_recommendation(self):
+        """
+        Recommend premium ultrabooks for general use with high-end budget.
+        """
         self.declare(Fact(
             recommendation="Ultrabook",
             reason="Premium ultrabooks offer the best all-around experience with exceptional build quality and performance.",
@@ -127,6 +160,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         Fact(budget="midrange")
     )
     def midrange_general_recommendation(self):
+        """
+        Recommend mid-range laptops for general use with moderate budget.
+        """
         self.declare(Fact(
             recommendation="Budget All-Rounder",
             reason="Perfect balance of performance and value for everyday computing tasks.",
@@ -140,6 +176,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         TEST(lambda budget: budget in ["economy", "midrange"])
     )
     def budget_creative_recommendation(self, budget):
+        """
+        Recommend budget options for creative users with limited budget.
+        """
         self.declare(Fact(
             recommendation="Budget All-Rounder",
             reason="While not ideal for intensive creative work, these offer good value with decent performance for lighter tasks.",
@@ -149,6 +188,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
     # Rule 12: Default Fallback (Lowest Priority)
     @Rule(salience=-1)
     def default_recommendation(self):
+        """
+        Provide a default recommendation when no specific rules match.
+        """
         self.declare(Fact(
             recommendation="Budget All-Rounder",
             reason="A versatile, affordable option suitable for most everyday computing needs.",
@@ -156,6 +198,9 @@ class LaptopKnowledgeEngine(KnowledgeEngine):
         ))
 
     def get_recommendation(self):
+        """
+        Extract and return the recommendation fact from the engine's facts.
+        """
         for fact in self.facts.values():
             if isinstance(fact, Fact) and 'recommendation' in fact:
                 return {
