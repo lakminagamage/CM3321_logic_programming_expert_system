@@ -1,6 +1,9 @@
 # 💻 Laptop Recommendation Expert System
 
+
 An intelligent expert system that recommends laptops based on user requirements using rule-based artificial intelligence. Built with Python's `experta` library and featuring a modern GUI powered by `customtkinter`.
+
+Developed for CM3321 Logic Programming and Artificial Cognitive Systems module at UoM IT
 
 ## 🌟 Features
 
